@@ -60,3 +60,33 @@ console.log(output); // 5
 
 output = fibonacci(9);
 console.log(output); // 34
+
+// 05. arrSum
+// arr -> number
+// bareScale: arr.length === 0;
+function arrSum(arr){
+  if(arr.length === 0){
+    return 0;
+  }
+  const [head, ...tail] = arr;
+  console.log(arr);
+  return head + arrSum(tail);
+}
+
+let output = arrSum([-1, -2, 1, 3]);
+console.log(output);
+
+// 06. take
+// num, arr => arr
+// bareScale: num === 0 || arr.length === 0;
+
+function take(num, arr){
+  if(num === 0 || arr.length === 0) return [];
+  const head = [arr[0]];
+  return head.concat(take(Number(num -1) , arr.slice(1)));
+}
+
+let output = take(2, [1, -2, 1, 3]);
+console.log(output);
+output= take(5, [1, -2, 1, 3]);
+console.log(output);
