@@ -19,7 +19,30 @@
 //   return arr;
 // };
 
+// 방2. AD
+const insertionSort = function (arr, callbackItem = (el) => el) {
+  // TODO: 여기에 코드를 작성합니다.
+  // arr -> arr
+  let result = [arr[0]];
+  let count = 1;
+    while(count !== arr.length){
+      if(callbackItem(arr[count]) >= callbackItem(result[count -1])){
+        result.push(arr[count]);
+      } else {
+        for( let i = 0; i < count; i++){
+          if(callbackItem(arr[count]) <= callbackItem(result[i])){
+            const left = result.slice(0, i );
+            const right = result.slice(i);
+            result = left.concat(arr[count], right);
+            break;
+          }
+        }
+      }
+      count++;
+    }
+  return result;
+}
 
 // 방2.insertionSort Advanced callback의 리턴값을 기준으로 정렬
-let output = insertionSort([ 5, 4, 3, 2, 1]);
+let output = insertionSort([5, 4, 3, 2, 1]);
 console.log(output); // --> [1, 3, 21]
