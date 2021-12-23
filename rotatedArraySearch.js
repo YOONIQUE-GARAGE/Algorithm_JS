@@ -1,3 +1,4 @@
+// 01. 
 const rotatedArraySearch = function (rotated, target) {
   // TODO : 여기에 코드를 작성합니다.
   // 정수배열, target -> target의 인덱스
@@ -17,7 +18,7 @@ const rotatedArraySearch = function (rotated, target) {
         lowest = middle + 1;
       }
     } else {
-      if(target < rotated[highest] && target > rotated[middle]){
+      if(target <= rotated[highest] && target > rotated[middle]){
         lowest = middle + 1;
       }else {
         highest = middle - 1;
@@ -26,6 +27,7 @@ const rotatedArraySearch = function (rotated, target) {
   }
   return -1;
 };
+
 
 let output = rotatedArraySearch([4, 5, 6, 0, 1, 2, 3], 2);
 console.log(output); // --> 5
