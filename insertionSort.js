@@ -45,4 +45,4 @@ const insertionSort = function (arr, callbackItem = (el) => el) {
 
 // 방2.insertionSort Advanced callback의 리턴값을 기준으로 정렬
 let output = insertionSort([5, 4, 3, 2, 1]);
-console.log(output); // --> [1, 3, 21]
+console.log(output); // --> [1, 2, 3, 4, 5]
