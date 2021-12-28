@@ -13,7 +13,7 @@ const getItemFromTwoSortedArrays = function (arr1, arr2, k) {
       result = arr2[right];
       right++;
     }
-    count++;
+    k--;
   }
   return result;
 };
