@@ -1,21 +1,55 @@
 const inequalityNumber = function (signs) {
   // TODO: 여기에 코드를 작성합니다.
-  // sign들을 배열로 만든다
-  signs = signs.split(" ");
-  console.log(signs);
-  // 이미 사용한 숫자들 넣는 배열
-  let used = [];
-  // 부등호 왼쪽수 / 오른쪽수
-  let left = [];
-  let right = [];
-  let nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  // '>' 가장큰수를 제일 앞에
-  // '<' 가장큰수 그 다음수
-  if (signs[0] === ">") {
-    right.push(nums[nums.length - 1]);
-    left.push(nums[nums.length - 2]);
-    used.push(nums[nums.length - 1], nums[nums.length - 2]);
-  }
+  // 최대 부등호수
+  const getMaxNumber = (signs, nums) => {
+    let max = "";
+    for (let i = 0; i < signs.length; i++) {
+      // '>'이면, 맨뒤에꺼 꺼내서 max에 담기
+      if (signs[i] === ">") {
+        max += String(nums.pop());
+      } else {
+        // 다음 부등호를 위해 카운트 세기
+        let count = 1;
+        for (let j = i + 1; j < signs.length; j++) {
+          if (signs[j] === "<") count++;
+          else break;
+        }
+        max += String(nums.splice(nums.length - 1 - count, 1));
+      }
+    }
+    max += nums.pop();
+    return max;
+  };
+
+  // 최소부등호수
+  const getMinNumber = (signs, nums) => {
+    let min = "";
+    for (let i = 0; i < signs.length; i++) {
+      // '<'이면 제일작은 수 가져오기
+      if (signs[i] === "<") {
+        min += String(nums.shift());
+      } else {
+        let count = 1;
+        for (let j = i + 1; j < signs.length; j++) {
+          if (signs[j] === ">") count++;
+          else break;
+        }
+        min += String(nums.splice(count, 1));
+      }
+    }
+    min += nums.shift();
+    return min;
+  };
+
+  // 최대부등호수 - 최소부등호수
+  const inequalityNumber = function (signs) {
+    signs = signs.split(" ");
+    let number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    // 최대 - 최소
+    const answer =
+      getMaxNumber(signs, number.slice()) - getMinNumber(signs, number.slice());
+    return answer;
+  };
 };
 
 let output = inequalityNumber("<");
