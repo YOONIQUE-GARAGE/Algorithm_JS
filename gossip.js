@@ -8,43 +8,56 @@ const createMatrix = (village) => {
   return matrix;
 };
 
+// 2차원 배열 만들기
+function arr2(rowLeng, columnLeng) {
+  const arr = new Array(rowLeng).fill(0);
+  for (let i = 0; i < rowLeng; i++) {
+    arr[i] = new Array(columnLeng).fill(0);
+  }
+  return arr;
+}
+
 const gossipProtocol = function (village, row, col) {
   // TODO: 여기에 코드를 작성합니다.
   // 첫번째 소문이 퍼진곳을 기준으로 0이 아니고 1이면 x로 표시하기
   // village만큼 배열생성해서 기본 0으로 셋팅 소문이 퍼진곳은 1로 만들기
+  const isKnow = arr2(village.length, village[0].length);
   let isDone = [];
   // 상하좌우 모두 undefined이면
   // 첫번째소문 퍼진 곳
   let curLocation = village[row][col];
-  isDone.push({ row, col });
+  isKnow[row][col] = 1;
+  //isDone.push({ row, col });
 
   // 이 부분 반복
   // 상하좌우가 undefined가 아닌지
   // 0인지 아닌지 판별
-  // 상
-  curLocation = village[row - 1][col];
-  console.log(`상: ${curLocation} / x: ${row - 1} / y: ${col}`);
-  if (curLocation !== undefined && curLocation != 0) {
-    isDone.push({ row: row - 1, col });
-  }
-  // 우
-  curLocation = village[row][col + 1];
-  console.log(`우: ${curLocation} / x: ${row} / y: ${col + 1}`);
-  if (curLocation !== undefined && curLocation != 0) {
-    isDone.push({ col: col + 1, row });
-  }
-  // 하
-  curLocation = village[row + 1][col];
-  if (curLocation !== undefined && curLocation != 0) {
-    isDone.push({ col, row: row + 1 });
-  }
-  // 좌
-  curLocation = village[row][col - 1];
-  if (curLocation !== undefined && curLocation != 0) {
-    isDone.push({ col: col - 1, row });
-  }
 
-  return isDone;
+  const spreadNext = function (isKnow) {
+    // 매트릭스로 판단?
+    // 상
+    curLocation = village[row - 1][col];
+    if (curLocation !== undefined && curLocation != 0) {
+      isKnow[row - 1][col] = 1;
+    }
+    // 우
+    curLocation = village[row][col + 1];
+    if (curLocation !== undefined && curLocation != 0) {
+      isKnow[row][col + 1] = 1;
+    }
+    // 하
+    curLocation = village[row + 1][col];
+    if (curLocation !== undefined && curLocation != 0) {
+      isKnow[row + 1][col] = 1;
+    }
+    // 좌
+    curLocation = village[row][col - 1];
+    if (curLocation !== undefined && curLocation != 0) {
+      isKnow[row][col - 1] = 1;
+    }
+
+    return isKnow;
+  };
 };
 
 let village = [
