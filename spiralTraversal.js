@@ -17,6 +17,7 @@
 //   console.log(tatal);
 // };
 
+// 02. 시계방향으로 순회하여 값가져오기
 const spiralTraversal = function (matrix) {
   let result = [];
 
