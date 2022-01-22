@@ -6,18 +6,44 @@ function calculateDistance(p1, p2) {
   return Math.round(dist * 100);
 }
 
-const closestPairOfPoints = function (points) {
-  // MAX_SAFE_INTEGER는 Javascript에서 안전한 최대 정수 값을 나타내는데
-  // 최소값에 들어올 수 있는 가장 큰 값을 넣으므로써 정수를 정확하고 올바르게 비교할 수 있게 해준다.
-  let min = Number.MAX_SAFE_INTEGER;
-  for (let i = 0; i < points.length; i++) {
-    for (let j = i + 1; j < points.length; j++) {
-      const distance = calculateDistance(points[i], points[j]);
-      // 재귀함수로 돌려서 제일 작은 값 찾아내 리턴
-      min = Math.min(min, distance);
+// 01. Basic
+//const closestPairOfPoints = function (points) {
+//  // MAX_SAFE_INTEGER는 Javascript에서 안전한 최대 정수 값을 나타내는데
+//  // 최소값에 들어올 수 있는 가장 큰 값을 넣으므로써 정수를 정확하고 올바르게 비교할 수 있게 해준다.
+//  let min = Number.MAX_SAFE_INTEGER;
+//  for (let i = 0; i < points.length; i++) {
+//    for (let j = i + 1; j < points.length; j++) {
+//      const distance = calculateDistance(points[i], points[j]);
+//      // 재귀함수로 돌려서 제일 작은 값 찾아내 리턴
+//      min = Math.min(min, distance);
+//    }
+//  }
+//  return min;
+//};
+
+// 02. (0(N * logN))
+// merge이용
+const merge = function (left, right, comparator = (item) => item) {
+  let merged = [];
+  let leftIdx = 0,
+    rightIdx = 0;
+  const size = left.length + right.length;
+  for (let i = 0; i < size; i++) {
+    if (leftIdx >= left.length) {
+      merged.push(right[rightIdx]);
+      rightIdx++;
+    } else if (
+      rightIdx >= right.length ||
+      comparator(left[leftIdx] <= comparator(right[rightIdx]))
+    ) {
+      merged.push(left[leftIdx]);
+      leftIdx;
+    } else {
+      merged.push(right[rightIdx]);
+      rightIdx++;
     }
   }
-  return min;
+  return merged;
 };
 
 let points = [
