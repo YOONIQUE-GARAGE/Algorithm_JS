@@ -6,32 +6,31 @@ const decompression = function (image) {
   // 4등북을 어떻게 할 수 있을까?
   // Math.floor((image.length - 1) / 2) > 0까지 4등분하기
   // 맨 처음은 image배열 그대로
-  let quarter = image.length - 1;
-  // 4등분 후 검사 왼위, 오위, 왼아래, 오아래 순서
-  // 4등분한 배열 원소 검사하는 부분 필요
-  const zeroOrOne = (image) => {
-    // 4등분 했을 때, 원소가 하나이면
-    if (image.length === 1) return image[0][0];
-    // 4등분 했을 때, 원소가 2개이상이면
-    let zero = 0;
-    let one = 0;
-    for (let i = 0; i < image.length; i++) {
-      for (let j = 0; j < image[0].length; j++) {
-        if (image[i][j] === 1) {
-          one++;
-        } else if (image[i][j] === 0) {
-          zero++;
-        }
-      }
-    }
-    if (zero === image.length * image[0].length) {
-      return 0;
-    } else if (one === image.length * image[0].length) {
-      return 1;
-    } else {
-      return "X";
-    }
+  // 필요한 요소는 y축 시작끝, x축 시작끝, y축 중간, x축 중간 총 6개
+  // y: row, x: col
+  // 4등분 한것을 반복할 재귀함수 필요
+  const quaterEl = (sY, eY, sX, eX, image) => {
+    // base
+    if (sY === eY) return `${image[sY][sX]}`;
+
+    const yMid = Math.floor((sY + eY) / 2);
+    const xMid = Math.floor((sX + eX) / 2);
+    const upLeft = quaterEl(sY, yMid, sX, xMid, image);
+    const upRight = quaterEl(sY, yMid, xMid + 1, eX, image);
+    const downLeft = quaterEl(yMid + 1, eY, sX, xMid, image);
+    const downRight = quaterEl(yMid + 1, eY, xMid + 1, eX, image);
+    let count = 1;
+    console.log(
+      `count: ${count} / upLeft: ${upLeft} / upRight: ${upRight} / downLeft: ${downLeft} / downRight: ${downRight}`
+    );
+    count++;
+    const result = upLeft + upRight + downLeft + downRight;
+    console.log(result);
+    if (result === "1111") return 1;
+    else if (result === "0000") return 0;
+    else return "X" + result;
   };
+  return quaterEl(0, image.length - 1, 0, image[0].length - 1, image);
 };
 
 let image = [
