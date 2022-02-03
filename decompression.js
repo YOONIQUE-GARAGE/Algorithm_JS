@@ -19,15 +19,15 @@ const decompression = function (image) {
     const upRight = quaterEl(sY, yMid, xMid + 1, eX, image);
     const downLeft = quaterEl(yMid + 1, eY, sX, xMid, image);
     const downRight = quaterEl(yMid + 1, eY, xMid + 1, eX, image);
-    let count = 1;
-    console.log(
-      `count: ${count} / upLeft: ${upLeft} / upRight: ${upRight} / downLeft: ${downLeft} / downRight: ${downRight}`
-    );
-    count++;
+    // let count = 1;
+    //console.log(
+    //  `count: ${count} / upLeft: ${upLeft} / upRight: ${upRight} / downLeft: ${downLeft} / downRight: ${downRight}`
+    //);
+    // count++;
     const result = upLeft + upRight + downLeft + downRight;
-    console.log(result);
-    if (result === "1111") return 1;
-    else if (result === "0000") return 0;
+
+    if (result === "1111") return "1";
+    else if (result === "0000") return "0";
     else return "X" + result;
   };
   return quaterEl(0, image.length - 1, 0, image[0].length - 1, image);
