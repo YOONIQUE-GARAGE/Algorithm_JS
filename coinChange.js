@@ -1,5 +1,4 @@
 const coinChange = function (total, coins) {
-  // TODO: 여기에 코드를 작성합니다.
   // memo 2차원 배열 만들기
   const memo = [];
   for (let i = 0; i < total + 1; i++) memo.push(Array(coins.length).fill(-1));
@@ -14,9 +13,9 @@ const coinChange = function (total, coins) {
     if (memo[left][idx] !== -1) return memo[left][idx];
 
     // 결국 total를 구할 수 있는 경우는
-    // idx를 바로바로 증가시켜서냐 아니면 idx를 계속 사용하면서 total을 만들어가냐이다
-    console.log(makeTotal(left, idx + 1));
-    //console.log(makeTotal(left - coins[idx], idx));
+    // idx를 바로바로 증가시켜서냐 아니면 idx를 계속 사용하면서 total을 만들어감
+    // console.log(makeTotal(left, idx + 1));
+    // console.log(makeTotal(left - coins[idx], idx));
     memo[left][idx] =
       makeTotal(left, idx + 1) + makeTotal(left - coins[idx], idx);
     return memo[left][idx];
