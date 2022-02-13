@@ -25,7 +25,6 @@ const rangeMinimum = function (arr, ranges) {
   };
   // arr을 segment된 tree 구함
   const segTree = makeSegArr(arr, 0, arr.length - 1);
-  console.log(segTree);
 
   // 범위들의 최소값 담을 배열
   let result = [];
